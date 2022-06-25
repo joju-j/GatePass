@@ -165,7 +165,6 @@ class LoginApp extends StatelessWidget {
 
                       child: Text(
                         'Login',
-                        
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
