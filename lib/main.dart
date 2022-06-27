@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import './screens/second.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -10,7 +11,7 @@ void main() => runApp(MaterialApp(
       title: "Login App",
       home: LoginApp(),
       routes: {
-        '/second': (context) => NewScreen(),
+        '/second': (context) => SecondScreen(),
       },
     ));
 
@@ -41,7 +42,6 @@ class LoginApp extends StatelessWidget {
               SizedBox(
                 height: 200,
                 width: 300,
-                //child: LottieBuilder.asset("assets/lottie/login2.json"),
               ),
               const SizedBox(
                 height: 10,
@@ -157,9 +157,9 @@ class LoginApp extends StatelessWidget {
                       // hoverColor: Color.fromARGB(137, 184, 177, 177),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.only(
-                            left: 30, right: 30, top: 0, bottom: 0),
+                            left: 40, right: 40, top: 0, bottom: 0),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(15)),
                         primary: Color.fromARGB(255, 122, 30, 172),
                       ),
 
@@ -169,10 +169,16 @@ class LoginApp extends StatelessWidget {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
+                            //fontFamily: 'Calistoga',
                             fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () =>
-                          {Navigator.pushNamed(context, '/second')},
+                      onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    SecondScreen()))
+                      },
                       onLongPress: () => {print("hii")},
                     ),
 
@@ -224,23 +230,23 @@ class LoginApp extends StatelessWidget {
     );
   }
 
-  void _navigateToNextScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => NewScreen()));
-  }
+  // void _navigateToNextScreen(BuildContext context) {
+  //   Navigator.of(context)
+  //       .push(MaterialPageRoute(builder: (context) => NewScreen()));
+  // }
 }
 
-class NewScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('New Screen')),
-      body: Center(
-        child: Text(
-          'This is a new screen',
-          style: TextStyle(fontSize: 24.0),
-        ),
-      ),
-    );
-  }
-}
+// class NewScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('New Screen')),
+//       body: Center(
+//         child: Text(
+//           'This is a new screen',
+//           style: TextStyle(fontSize: 24.0),
+//         ),
+//       ),
+//     );
+//   }
+// }
