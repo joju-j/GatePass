@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './request.dart';
+import './pending.dart';
 
 class SecondScreen extends StatelessWidget {
   @override
@@ -31,9 +33,9 @@ class SecondScreen extends StatelessWidget {
                       ),
                       Container(
                         width: 325,
-                        height: 260,
+                        height: 250,
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 18, 182, 215),
+                          color: Color.fromARGB(255, 244, 143, 131),
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         child: Column(
@@ -43,7 +45,13 @@ class SecondScreen extends StatelessWidget {
                               height: 35,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            RequestScreen()))
+                              },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.only(
                                     left: 70, right: 70, top: 10, bottom: 10),
@@ -66,7 +74,13 @@ class SecondScreen extends StatelessWidget {
                               height: 45,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            PendingLogsScreen()))
+                              },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.only(
                                     left: 40, right: 40, top: 10, bottom: 10),
