@@ -24,11 +24,11 @@ class RequestScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Container(
                   width: 350,
-                  height: 500,
+                  height: 550,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 227, 144, 135),
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -41,7 +41,7 @@ class RequestScreen extends StatelessWidget {
                       ),
                       Container(
                         width: 260,
-                        height: 400,
+                        height: 500,
                         child: Column(
                           children: [
                             const TextField(
@@ -114,6 +114,8 @@ class RequestScreen extends StatelessWidget {
                             const SizedBox(
                               width: 500,
                               child: TextField(
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
                                 decoration: InputDecoration(
                                   labelText: "REASON:",
                                   filled: true,
@@ -126,7 +128,29 @@ class RequestScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.only(
+                                    left: 40, right: 40, top: 0, bottom: 0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                primary: Color.fromARGB(255, 122, 30, 172),
+                              ),
+                              child: Text(
+                                'Submit Request',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  //fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
