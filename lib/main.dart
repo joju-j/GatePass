@@ -6,8 +6,6 @@ import './screens/second.dart';
 import './screens/request.dart';
 import './screens/pending.dart';
 
-
-
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -17,8 +15,8 @@ void main() => runApp(MaterialApp(
       home: LoginApp(),
       routes: {
         '/second': (context) => SecondScreen(),
-        '/third':(context) => RequestScreen(),
-        '/four':(context) => PendingLogsScreen(),
+        '/third': (context) => RequestScreen(),
+        '/four': (context) => DateTimePicker(),
       },
     ));
 
@@ -168,6 +166,8 @@ class LoginApp extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         primary: Color.fromARGB(255, 122, 30, 172),
+                        shadowColor: Colors.black,
+                        elevation: 10,
                       ),
 
                       child: Text(

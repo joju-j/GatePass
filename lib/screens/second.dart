@@ -58,6 +58,8 @@ class SecondScreen extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 primary: Color.fromARGB(255, 122, 30, 172),
+                                shadowColor: Colors.black,
+                                elevation: 10,
                               ),
                               child: Text(
                                 'Request',
@@ -79,7 +81,7 @@ class SecondScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            PendingLogsScreen()))
+                                            DateTimePicker()))
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.only(
@@ -87,6 +89,8 @@ class SecondScreen extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
                                 primary: Color.fromARGB(255, 122, 30, 172),
+                                shadowColor: Colors.black,
+                                elevation: 10,
                               ),
                               child: Text(
                                 'Pending Log',
