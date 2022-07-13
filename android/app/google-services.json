@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "454580434444",
+    "firebase_url": "https://wayout-app-2923b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "wayout-app-2923b",
+    "storage_bucket": "wayout-app-2923b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454580434444:android:c8dd643896fd8e334d2029",
+        "android_client_info": {
+          "package_name": "com.example.login_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454580434444-rsmbb95iomc2j6rp2lma4al4k94sgqcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4EmBDOyNThqy9MtCCLO6KJH5FLzy5MV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454580434444-rsmbb95iomc2j6rp2lma4al4k94sgqcf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "454580434444-cfmscvm47ls3apm70mbb51fh74ae4kmr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.loginApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -65,7 +65,7 @@ class LoginApp extends StatelessWidget {
                       height: 35,
                     ),
                     const Text(
-                      "MyWay App",
+                      "WayOut App",
                       style: TextStyle(
                         fontSize: 28,
                         //fontWeight: FontWeight.bold,
