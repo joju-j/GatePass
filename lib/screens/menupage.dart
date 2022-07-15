@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import './request.dart';
-import './pending.dart';
+import 'package:login_app/screens/qrcode/qrhome.dart';
+import 'requestpage.dart';
 
-class SecondScreen extends StatelessWidget {
+
+class Menupage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +82,7 @@ class SecondScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            DateTimePicker()))
+                                            HomePage()))
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.only(
