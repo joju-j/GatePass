@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
             Image(image: NetworkImage("https://media.istockphoto.com/vectors/qr-code-scan-phone-icon-in-comic-style-scanner-in-smartphone-vector-vector-id1166145556")),
             flatButton("Scan QR CODE", ScanScreen()),
             SizedBox(height: 20.0,),
-            flatButton("Generate QR CODE", CreateQr()),
+            //flatButton("Generate QR CODE", CreateQr()),
           ],
         ),
       ),

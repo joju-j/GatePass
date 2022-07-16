@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() => runApp(RequestScreen());
 
@@ -75,9 +75,28 @@ List<int> _getDividersIndexes() {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _date = "Not set";
-  String _time = "Not set";
+  DateTime time = DateTime.now();
   @override
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) => Container(
+              height: 216,
+              padding: const EdgeInsets.only(top: 6.0),
+              // The Bottom margin is provided to align the popup above the system navigation bar.
+              margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              // Provide a background color for the popup.
+              color: CupertinoColors.systemBackground.resolveFrom(context),
+              // Use a SafeArea widget to avoid system overlaps.
+              child: SafeArea(
+                top: false,
+                child: child,
+              ),
+            ));
+  }
+
   void initState() {
     super.initState();
   }
@@ -210,101 +229,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 85, 31, 31),
-                                    fontSize: 15,
+                                    fontSize: 12,
                                     fontFamily: 'Calistoga',
                                     //fontWeight: FontWeight.bold
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 10.0,
-                                // ),
-                                RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100)),
-                                  elevation: 4.0,
-                                  onPressed: () {
-                                    DatePicker.showTimePicker(context,
-                                        theme: DatePickerTheme(
-                                          containerHeight: 200.0,
-                                        ),
-                                        showTitleActions: true,
-                                        onConfirm: (time) {
-                                      print('confirm $time');
-                                      _time = '${time.hour} : ${time.minute} ';
-                                      setState(() {});
-                                    },
-                                        currentTime: DateTime.now(),
-                                        locale: LocaleType.en);
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 50.0,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Row(
-                                          children: <Widget>[
-                                            Container(
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.access_time,
-                                                    size: 18.0,
-                                                    color: Colors.teal,
-                                                  ),
-                                                  Text(
-                                                    " $_time",
-                                                    style: TextStyle(
-                                                        color: Colors.teal,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15.0),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          "  Change",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 212, 97, 20),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
+                                CupertinoButton(
+                                  color: Color.fromARGB(12, 0, 0, 0),
+                                  // Display a CupertinoDatePicker in time picker mode.
+                                  onPressed: () => _showDialog(
+                                    CupertinoDatePicker(
+                                      initialDateTime: time,
+                                      mode: CupertinoDatePickerMode.time,
+
+                                      use24hFormat: true,
+                                      // This is called when the user changes the time.
+                                      onDateTimeChanged: (DateTime newTime) {
+                                        setState(() => time = newTime);
+                                      },
                                     ),
                                   ),
-                                  color: Colors.white,
-                                )
+                                  // In this example, the time value is formatted manually. You can use intl package to
+                                  // format the value based on the user's locale settings.
+                                  child: Text(
+                                    '${time.hour}:${time.minute}',
+                                    style: const TextStyle(
+                                        fontSize: 22.0,
+                                        color: Color.fromARGB(255, 85, 31, 31)),
+                                  ),
+                                ),
+                                // Icon(
+                                //   Icons.access_time,
+                                //   size: 20.0,
+                                //   semanticLabel: 'CLick',
+                                // ),
                               ],
                             ),
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            // children: [
-                            //   const SizedBox(
-                            //     width: 20,
-                            //   ),
-                            //   Text(
-                            //     "Time:",
-                            //     style: TextStyle(
-                            //       fontSize: 28,
-                            //       fontFamily: 'Calistoga',
-                            //     ),
-                            //   ),
-                            //   const SizedBox(
-                            //     width: 80,
-                            //   ),
-                            //   Text(
-                            //     "${selectedTime.hour}:${selectedTime.minute}",
-                            //     style: TextStyle(
-                            //       fontSize: 28,
-                            //       fontFamily: 'Calistoga',
-                            //     ),
-                            //   ),
-                            // ],
+                            // SizedBox(
+                            //   height: 10.0,
+                            // ),
+
                             const SizedBox(
                               height: 30,
                             ),
@@ -341,11 +305,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 elevation: 10,
                               ),
                               child: Text(
-                                'Submit Request',
-                                textAlign: TextAlign.start,
+                                'SUBMIT REQUEST',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 25,
+                                  fontSize: 18,
                                   //fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -358,6 +322,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             )),
+      ),
+    );
+  }
+}
+
+class _DatePickerItem extends StatelessWidget {
+  const _DatePickerItem({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+          bottom: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: children,
+        ),
       ),
     );
   }

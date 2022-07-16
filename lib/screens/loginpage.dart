@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'menupage.dart';
+import './qrcode/generate.dart';
 
 class LoginApp extends StatelessWidget {
   void click() {}
+  TextEditingController _id = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +73,8 @@ class LoginApp extends StatelessWidget {
                     Container(
                       width: 260,
                       height: 60,
-                      child: const TextField(
+                      child: TextField(
+                        controller: _id,
                         decoration: InputDecoration(
                             // suffix: Icon(
                             //   FontAwesomeIcons.envelope,
@@ -164,8 +168,9 @@ class LoginApp extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    Menupage()))
+                                builder: (BuildContext context) => Menupage())),
+                        //  Navigator.of(context).push(MaterialPageRoute(builder: 
+                        //  (context)=>CreateQr(qr: _id.text)))
                       },
                       onLongPress: () => {print("hii")},
                     ),
