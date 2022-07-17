@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/pending.dart';
-import './screens/menupage.dart';
-import 'screens/requestpage.dart';
-import './screens/pending.dart';
+import 'screens/student/menupage.dart';
+import 'screens/student/requestpage.dart';
 import './screens/loginpage.dart';
 
 void main() {
@@ -24,9 +22,10 @@ class _MyAppState extends State<MyApp> {
       ),
       title: "Login App",
       home: LoginApp(),
+      initialRoute: 'home',
       routes: {
-        '/second': (context) => Menupage(),
-        '/third': (context) => RequestScreen(),
+        'home': (context) => Menupage(),
+        'req': (context) => RequestScreen(),
         //'/fourth': (context) => DateTimePicker(),
       },
     );

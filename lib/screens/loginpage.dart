@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'menupage.dart';
-import './qrcode/generate.dart';
+import 'package:login_app/screens/qrcode/scan.dart';
+import 'hod/hodhome.dart';
+import 'student/menupage.dart';
 
 class LoginApp extends StatelessWidget {
   void click() {}
-  TextEditingController _id = TextEditingController();
+  final TextEditingController _id = TextEditingController();
 
+  String admin = 'admin';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,12 +167,32 @@ class LoginApp extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => Menupage())),
-                        //  Navigator.of(context).push(MaterialPageRoute(builder: 
-                        //  (context)=>CreateQr(qr: _id.text)))
+                        if (_id.text == admin)
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        hodpage())),
+                            //  Navigator.of(context).push(MaterialPageRoute(builder:
+                            //  (context)=>CreateQr(qr: _id.text)))
+                          }
+                        else if (_id.text == 'security')
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const ScanScreen())),
+                          }
+                        else
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        Menupage())),
+                          }
                       },
                       onLongPress: () => {print("hii")},
                     ),
