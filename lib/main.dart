@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       home: LoginApp(),
       initialRoute: 'home',
       routes: {
-        'home': (context) => Menupage(),
+        'home': (context) => LoginApp(),
         'req': (context) => RequestScreen(),
         //'/fourth': (context) => DateTimePicker(),
       },
