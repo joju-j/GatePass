@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class decision extends StatelessWidget {
+class info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +81,7 @@ class decision extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       const SizedBox(
-                        width: 10,
+                        width: 30,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -93,31 +93,14 @@ class decision extends StatelessWidget {
                           shadowColor: Colors.black,
                           elevation: 10,
                         ),
-                        onPressed: () => {print(Navigator.defaultRouteName)},
+                        onPressed: () => {},
                         child: Text(
-                          'Accept',
+                          'Accept/Denied',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
                       const SizedBox(width: 30),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 25, right: 25, top: 0, bottom: 0),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100)),
-                          primary: Colors.red,
-                          shadowColor: Colors.black,
-                          elevation: 10,
-                        ),
-                        onPressed: () => {},
-                        child: Text(
-                          'Deny',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
                       const SizedBox(
                         width: 10,
                       ),

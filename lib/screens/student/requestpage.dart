@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:login_app/screens/student/menupage.dart';
 
 //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 void main() => runApp(RequestScreen());
@@ -240,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             TextField(
                               controller: clearclass,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 labelText: "CLASS:",
                                 filled: true,
                                 fillColor: Colors.white,
@@ -350,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           actions: [
                                             TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  //Navigator.of(context).push();
                                                   showDialog(
                                                       context: context,
                                                       builder:
@@ -362,19 +361,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             TextButton(
                                                               onPressed: () {
                                                                 clearText();
-                                                                Navigator
-                                                                    .pushNamed(
-                                                                        context,
-                                                                        'home');
-                                                                // Navigator.push(
-                                                                //     context,
-                                                                //     MaterialPageRoute(
-                                                                //         builder:
-                                                                //             (BuildContext context) =>
-                                                                //                 Menupage()));
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
                                                               child: const Text(
-                                                                  'Return Home'),
+                                                                  'Okay'),
                                                             ),
                                                           ],
                                                         );

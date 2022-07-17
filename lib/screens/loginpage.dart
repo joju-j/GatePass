@@ -6,7 +6,7 @@ import 'student/menupage.dart';
 class LoginApp extends StatelessWidget {
   void click() {}
   final TextEditingController _id = TextEditingController();
-
+  final TextEditingController pass = TextEditingController();
   String admin = 'admin';
   @override
   Widget build(BuildContext context) {
@@ -78,10 +78,6 @@ class LoginApp extends StatelessWidget {
                       child: TextField(
                         controller: _id,
                         decoration: InputDecoration(
-                            // suffix: Icon(
-                            //   FontAwesomeIcons.envelope,
-                            //   color: Colors.red,
-                            // ),
                             labelText: "Username",
                             border: OutlineInputBorder(
                               borderRadius:
@@ -95,13 +91,10 @@ class LoginApp extends StatelessWidget {
                     Container(
                       width: 260,
                       height: 60,
-                      child: const TextField(
+                      child: TextField(
+                        controller: pass,
                         obscureText: true,
                         decoration: InputDecoration(
-                            // suffix: Icon(
-                            //   FontAwesomeIcons.eyeSlash,
-                            //   color: Colors.red,
-                            // ),
                             labelText: "Password",
                             border: OutlineInputBorder(
                               borderRadius:
@@ -109,41 +102,6 @@ class LoginApp extends StatelessWidget {
                             )),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       TextButton(
-                    //         onPressed: () {},
-                    //         child: const Text(
-                    //           "        ",
-                    //           style: TextStyle(color: Colors.deepOrange),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                    // GestureDetector(
-                    //   child: Container(
-                    //     alignment: Alignment.center,
-                    //     width: 250,
-                    //     decoration: const BoxDecoration(
-                    //         borderRadius: BorderRadius.all(Radius.circular(50)),
-                    //         gradient: LinearGradient(
-                    //             begin: Alignment.centerLeft,
-                    //             end: Alignment.centerRight,
-                    //             colors: [
-                    //               Color.fromARGB(255, 122, 30, 172),
-                    //               //Color.fromARGB(255, 48, 118, 156),
-                    //               Color.fromARGB(255, 22, 34, 159),
-                    //             ])),
-                    //     child: const Padding(
-                    //       padding: EdgeInsets.all(12.0),
-                    //       child:
-                    //     ),
-                    //   ),
-                    // ),
                     Spacer(flex: 1),
                     ElevatedButton(
                       // hoverColor: Color.fromARGB(137, 184, 177, 177),
@@ -196,45 +154,10 @@ class LoginApp extends StatelessWidget {
                       },
                       onLongPress: () => {print("hii")},
                     ),
-
                     const SizedBox(
                       height: 17,
                     ),
                     Spacer(flex: 1),
-                    // const Text(
-                    //   "Or Login using Social Media Account",
-                    //   style: TextStyle(fontWeight: FontWeight.bold),
-                    // ),
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     IconButton(
-                    //         onPressed: click,
-                    //         icon: const Icon(FontAwesomeIcons.facebook,
-                    //             color: Colors.blue)),
-                    //     IconButton(
-                    //         onPressed: click,
-                    //         icon: const Icon(
-                    //           FontAwesomeIcons.google,
-                    //           color: Colors.redAccent,
-                    //         )),
-                    //     IconButton(
-                    //         onPressed: click,
-                    //         icon: const Icon(
-                    //           FontAwesomeIcons.twitter,
-                    //           color: Colors.orangeAccent,
-                    //         )),
-                    //     IconButton(
-                    //         onPressed: click,
-                    //         icon: const Icon(
-                    //           FontAwesomeIcons.linkedinIn,
-                    //           color: Colors.green,
-                    //         ))
-                    //   ],
-                    // )
                   ],
                 ),
               )
@@ -244,24 +167,4 @@ class LoginApp extends StatelessWidget {
       ),
     );
   }
-
-  // void _navigateToNextScreen(BuildContext context) {
-  //   Navigator.of(context)
-  //       .push(MaterialPageRoute(builder: (context) => NewScreen()));
-  // }
 }
-
-// class NewScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('New Screen')),
-//       body: Center(
-//         child: Text(
-//           'This is a new screen',
-//           style: TextStyle(fontSize: 24.0),
-//         ),
-//       ),
-//     );
-//   }
-// }

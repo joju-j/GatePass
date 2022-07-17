@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
             "id": index,
             "title": "Name $index",
             "subtitle": "Time $index",
-            "subtitle": "Time $index"
+            //"subtitle1": "Class $index"
           });
 
   @override
@@ -38,39 +38,73 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Request List'),
       ),
-      body: ListTileTheme(
-        contentPadding: const EdgeInsets.all(15),
-        iconColor: Colors.red,
-        textColor: Colors.black54,
-        tileColor: Colors.yellow[100],
-        style: ListTileStyle.list,
-        dense: true,
-        child: ListView.builder(
-          itemCount: _items.length,
-          itemBuilder: (_, index) => Card(
-            margin: const EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(_items[index]['title']),
-              subtitle: Text(_items[index]['subtitle']),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => decision()));
-                      },
-                      icon: const Icon(Icons.assignment)),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.check)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.block_rounded)),
-                ],
+      body: Stack(
+        children: [
+          ListTileTheme(
+            contentPadding: const EdgeInsets.all(15),
+            iconColor: Colors.red,
+            textColor: Colors.black54,
+            tileColor: Colors.yellow[100],
+            style: ListTileStyle.list,
+            dense: true,
+            child: ListView.builder(
+              itemCount: _items.length,
+              itemBuilder: (_, index) => Card(
+                margin: const EdgeInsets.all(10),
+                child: ListTile(
+                  title: Text(_items[index]['title']),
+                  subtitle: Text(_items[index]['subtitle']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            print("helloo");
+                            print(context);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => decision()));
+                            
+                          },
+                          icon: const Icon(Icons.assignment)),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.check)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.block_rounded)),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const SizedBox(
+                width: double.infinity,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      //supabase indakitt code cheyyam
+                    },
+                    child: const Icon(Icons.refresh),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
