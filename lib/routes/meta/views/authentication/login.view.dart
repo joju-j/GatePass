@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:login_app/core%20notifier/authentication.notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../screens/menupage.dart';
+import '../../../../screens/student/menupage.dart';
 
 class LoginView extends StatefulWidget{
   @override
