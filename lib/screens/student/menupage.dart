@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/pending.dart';
-import 'package:login_app/screens/qrcode/generate.dart';
-import 'package:login_app/screens/requestpage.dart';
-import 'package:login_app/screens/qrcode/qrhome.dart';
+import 'package:login_app/screens/student/pending.dart';
+import 'package:login_app/screens/student/requestpage.dart';
 import 'requestpage.dart';
-//import 'hodhome.dart';
+
 
 class Menupage extends StatelessWidget {
   @override
@@ -16,7 +14,7 @@ class Menupage extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/Start.png'),
+                    image: AssetImage('assets/images/Start.jpg'),
                     fit: BoxFit.cover)),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

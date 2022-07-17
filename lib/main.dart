@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/routes/app.routes.dart';
-import 'package:login_app/screens/pending.dart';
+import 'package:login_app/screens/student/menupage.dart';
+import 'package:login_app/screens/student/requestpage.dart';
 import 'package:provider/provider.dart';
-import './screens/menupage.dart';
 import './app.provider.dart';
 import './routes/app.routes.dart';
-import 'screens/requestpage.dart';
-import './screens/pending.dart';
 import './screens/loginpage.dart';
 import './routes/meta/views/authentication/login.view.dart';
+import 'package:login_app/core%20notifier/authentication.notifier.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(Core());
-  login();
-}
-void login() async{
-                      String id= "example@email.com";
-                      String password ="example-password";
 }
 
 class MyApp extends StatefulWidget {

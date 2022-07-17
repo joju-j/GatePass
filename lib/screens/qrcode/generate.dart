@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
-import 'package:login_app/screens/loginpage.dart';
-import 'package:login_app/screens/loginpage.dart';
 
-class CreateQr extends StatefulWidget {
-  const CreateQr({Key? key}) : super(key: key);
+// class CreateQr extends StatefulWidget {
+//   const CreateQr({Key? key}) : super(key: key);
 
-  @override
-  _CreateQrState createState() => _CreateQrState();
-}
+//   @override
+//   _CreateQrState createState() => _CreateQrState();
+// }
 
-class _CreateQrState extends State<CreateQr> {
-  String qr = ' ';
+class CreateQr extends StatelessWidget {
+  String qr = '5654315778';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text(" QR Code"),
+        title: Text("QR Code"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

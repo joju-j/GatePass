@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 
+//final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 void main() => runApp(RequestScreen());
 
 class RequestScreen extends StatefulWidget {
@@ -76,6 +77,58 @@ List<int> _getDividersIndexes() {
 
 class _HomeScreenState extends State<HomeScreen> {
   DateTime time = DateTime.now();
+
+  // void _confirmbox(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) => AlertDialog(
+  //             title: const Text('Please Confirm'),
+  //             content: const Text('Do you want to submit this request?'),
+  //             actions: [
+  //               // The "Yes" button
+  //               TextButton(
+  //                   onPressed: () {
+  //                     // Remove the box
+  //                     Navigator.of(context).pop();
+  //                     showDialog(
+  //                         context: context,
+  //                         builder: (BuildContext ctx) {
+  //                           return AlertDialog(
+  //                             content: const Text(
+  //                                 'Your request has been submitted.'),
+  //                             actions: [
+  //                               TextButton(
+  //                                 onPressed: () {
+  //                                   Navigator.push(
+  //                                       context,
+  //                                       MaterialPageRoute(
+  //                                           builder: (BuildContext context) =>
+  //                                               Menupage()));
+  //                                 },
+  //                                 child: const Text('Return Home'),
+  //                               ),
+  //                             ],
+  //                           );
+  //                         });
+  //                     // Close the dialog
+  //                   },
+  //                   child: const Text('Yes')),
+  //               TextButton(
+  //                   onPressed: () {
+  //                     // Close the dialog
+  //                     Navigator.of(context).pop();
+  //                   },
+  //                   child: const Text('No'))
+  //             ],
+  //           ));
+  // }
+  final clearreason = TextEditingController();
+  final clearclass = TextEditingController();
+  void clearText() {
+    clearclass.clear();
+    clearreason.clear();
+  }
+
   @override
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -127,8 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 Container(
-                  width: 360,
-                  height: 550,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 227, 144, 135),
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -144,21 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 500,
                         child: Column(
                           children: [
-                            // const TextField(
-                            //   decoration: InputDecoration(
-                            //     labelText: "HOD:",
-                            //     filled: true,
-                            //     fillColor: Colors.white,
-                            //     border: OutlineInputBorder(
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(100)),
-                            //     ),
-                            //   ),
-                            // ),
                             DropdownButtonHideUnderline(
                               child: DropdownButton2(
                                 isExpanded: true,
-                                hint: Text(
+                                hint: const Text(
                                   '    Select HOD:',
                                   style: TextStyle(
                                     fontSize: 18,
@@ -195,8 +237,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const TextField(
-                              decoration: InputDecoration(
+                            TextField(
+                              controller: clearclass,
+                              decoration: const InputDecoration(
                                 labelText: "CLASS:",
                                 filled: true,
                                 fillColor: Colors.white,
@@ -272,11 +315,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               height: 30,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 500,
                               child: TextField(
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
+                                controller: clearreason,
                                 decoration: InputDecoration(
                                   labelText: "REASON:",
                                   filled: true,
@@ -294,7 +338,54 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 30,
                             ),
                             ElevatedButton(
-                              onPressed: () => {},
+                              onPressed: () => {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Please Confirm'),
+                                          content: const Text(
+                                              'Do you want to submit this request?'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  //Navigator.of(context).push();
+                                                  showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (BuildContext ctx) {
+                                                        return AlertDialog(
+                                                          content: const Text(
+                                                              'Your request has been submitted.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                clearText();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: const Text(
+                                                                  'Okay'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      });
+                                                  // Close the dialog
+                                                },
+                                                child: const Text('Yes')),
+                                            TextButton(
+                                                onPressed: () {
+                                                  // Close the dialog
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('No'))
+                                          ],
+                                        ))
+                              },
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.only(
                                     left: 40, right: 40, top: 10, bottom: 10),
