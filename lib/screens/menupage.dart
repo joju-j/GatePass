@@ -4,7 +4,7 @@ import 'package:login_app/screens/qrcode/generate.dart';
 import 'package:login_app/screens/requestpage.dart';
 import 'package:login_app/screens/qrcode/qrhome.dart';
 import 'requestpage.dart';
-import 'hodhome.dart';
+//import 'hodhome.dart';
 
 class Menupage extends StatelessWidget {
   @override

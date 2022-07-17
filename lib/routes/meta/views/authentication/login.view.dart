@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
-import 'menupage.dart';
-import './qrcode/generate.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:login_app/core%20notifier/authentication.notifier.dart';
+import 'package:provider/provider.dart';
 
-class LoginApp extends StatelessWidget {
+import '../../../../screens/menupage.dart';
+
+class LoginView extends StatefulWidget{
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+class _LoginViewState extends State<LoginView> {
   void click() {}
   TextEditingController _id = TextEditingController();
-
+  TextEditingController passController=TextEditingController();
+@override
+void initState(){
+  _id = TextEditingController();
+  passController = TextEditingController();
+  super.initState();
+}
   @override
   Widget build(BuildContext context) {
+    final AuthenticationNotifier authenticationNotifier=
+    Provider.of<AuthenticationNotifier>(context,listen: false);
+
+
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -39,7 +58,7 @@ class LoginApp extends StatelessWidget {
                 width: 325,
                 height: 420,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 233, 153, 153),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
                 child: Column(
@@ -52,6 +71,7 @@ class LoginApp extends StatelessWidget {
                       "WayOut App",
                       style: TextStyle(
                         fontSize: 28,
+                        color: Colors.black,
                         //fontWeight: FontWeight.bold,
                         fontFamily: 'Calistoga',
                       ),
@@ -59,10 +79,10 @@ class LoginApp extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
+                    Text(
                       "Please Login to Your Account",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Color.fromARGB(255, 240, 236, 236),
                         fontSize: 15,
                         fontFamily: 'Chilanka',
                       ),
@@ -81,6 +101,8 @@ class LoginApp extends StatelessWidget {
                             //   color: Colors.red,
                             // ),
                             labelText: "Username",
+                            labelStyle: TextStyle(color: Colors.black),
+                            //fillColor: Colors.red,
                             border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
@@ -93,11 +115,14 @@ class LoginApp extends StatelessWidget {
                     Container(
                       width: 260,
                       height: 60,
-                      child: const TextField(
+                      child: TextField(
+                        
                         obscureText: true,
+                        controller: passController,
                         decoration: InputDecoration(
                             
                             labelText: "Password",
+                            labelStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
@@ -107,7 +132,22 @@ class LoginApp extends StatelessWidget {
 
                     Spacer(flex: 1),
                     ElevatedButton(
-                     
+                     onPressed: () async{
+                      String id= _id.text;
+                      String password =passController.text;
+                      if(id.isNotEmpty && password.isNotEmpty){
+                        String? va =await authenticationNotifier.login(id: id, password: password);
+                        print(va);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => Menupage()));
+
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Check entered details")));
+                      }
+                     },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.only(
                             left: 40, right: 40, top: 0, bottom: 0),
@@ -118,7 +158,7 @@ class LoginApp extends StatelessWidget {
                         elevation: 10,
                       ),
 
-                      child: Text(
+                      child: const Text(
                         'Login',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -127,14 +167,14 @@ class LoginApp extends StatelessWidget {
                         
                             fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () => {
+                      onLongPress: () => {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) => Menupage())),
           
                       },
-                      onLongPress: () => {print("hii")},
+                      //onLongPress: () => {print("hii")},
                     ),
 
                     const SizedBox(

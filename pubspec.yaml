@@ -30,7 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   dropdown_button2: ^1.6.2
-  supabase: ^0.0.1-dev.9
+  provider: ^6.0.0
+  supabase: ^0.2.6 
   #qr_flutter: ^4.0.0
   path_provider: ^1.6.5
   flutter_barcode_scanner: ^2.0.0
@@ -43,7 +44,6 @@ dependencies:
   flutter_svg: ^1.0.3
   lottie: ^1.2.2
   font_awesome_flutter: ^9.2.0
-  #supabase_flutter: ^0.0.8
   get_it: ^7.2.0
   #firebase_core: ^1.19.1
 
