@@ -1,6 +1,6 @@
 import 'package:supabase/supabase.dart';
 
-import '../app/credentials/supabase.credentials.dart';
+import 'supabase.credentials.dart';
 
 class AuthenticationService{
   Future<String?> login({

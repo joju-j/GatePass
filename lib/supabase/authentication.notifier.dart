@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/services/authentication.service.dart';
+import 'package:login_app/supabase/authentication.service.dart';
 
 class AuthenticationNotifier extends ChangeNotifier{
   

@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/qrcode/scan.dart';
+import 'package:provider/provider.dart';
+import '../supabase/authentication.notifier.dart';
 import 'hod/hodhome.dart';
 import 'student/menupage.dart';
 
-class LoginApp extends StatelessWidget {
+class Loginpage extends StatefulWidget {
+  @override
+  _LoginpageState createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
   void click() {}
-  final TextEditingController _id = TextEditingController();
-  final TextEditingController pass = TextEditingController();
-  String admin = 'admin';
+  TextEditingController _id = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  @override
+  void initState() {
+    _id = TextEditingController();
+    pass = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final AuthenticationNotifier authenticationNotifier =
+        Provider.of<AuthenticationNotifier>(context, listen: false);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -95,18 +111,15 @@ class LoginApp extends StatelessWidget {
                         controller: pass,
                         obscureText: true,
                         decoration: InputDecoration(
-                            
-                            labelText: "Password",
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                            )),
+                          labelText: "Password",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                        ),
                       ),
                     ),
-
                     Spacer(flex: 1),
                     ElevatedButton(
-                     
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.only(
                             left: 40, right: 40, top: 0, bottom: 0),
@@ -116,56 +129,69 @@ class LoginApp extends StatelessWidget {
                         shadowColor: Colors.black,
                         elevation: 10,
                       ),
-
                       child: Text(
                         'Login',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
-                        
                             fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () => {
+                      onPressed: () async {
+                        String emailid = 'example@email.com';
+                        String password = 'example-password';
+                        //if (id.isNotEmpty && password.isNotEmpty) {
+                        await authenticationNotifier.login(
+                            id: emailid, password: password);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) => Menupage())),
-          
-                        if (_id.text == admin)
-                          {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        hodpage())),
-                            //  Navigator.of(context).push(MaterialPageRoute(builder:
-                            //  (context)=>CreateQr(qr: _id.text)))
-                          }
-                        else if (_id.text == 'security')
-                          {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const ScanScreen())),
-                          }
-                        else
-                          {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Menupage())),
-                          }
+                                builder: (BuildContext context) => Menupage()));
+                        //}
+                        // else {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(
+                        //           content: Text("Check entered details")));
+                        // }
+                        // if (_id.text == 'admin')
+                        //   {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (BuildContext context) =>
+                        //                 hodpage())),
+                        //     //  Navigator.of(context).push(MaterialPageRoute(builder:
+                        //     //  (context)=>CreateQr(qr: _id.text)))
+                        //   }
+                        // else if (_id.text == 'security')
+                        //   {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (BuildContext context) =>
+                        //                 const ScanScreen())),
+                        //   }
+                        // else
+                        //   {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (BuildContext context) =>
+                        //                 Menupage())),
+                        //   }
                       },
-                      onLongPress: () => {print("hii")},
+                      // onLongPress: () => {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (BuildContext context) => Menupage())),
+                      // },
                     ),
                     const SizedBox(
                       height: 17,
                     ),
                     Spacer(flex: 1),
-              
                   ],
                 ),
               )
@@ -175,5 +201,4 @@ class LoginApp extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:login_app/core%20notifier/authentication.notifier.dart';
+import 'package:login_app/supabase/authentication.notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../screens/student/menupage.dart';
+import '../screens/student/menupage.dart';
 
 class LoginView extends StatefulWidget{
   @override
