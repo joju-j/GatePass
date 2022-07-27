@@ -41,8 +41,7 @@ class hodpage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const hodreq())),
+                              builder: (BuildContext context) => hodreq())),
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(

@@ -138,16 +138,29 @@ class _LoginpageState extends State<Loginpage> {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () async {
-                        String emailid = 'example@email.com';
-                        String password = 'example-password';
-                        //if (id.isNotEmpty && password.isNotEmpty) {
-                        await authenticationNotifier.login(
-                            id: emailid, password: password);
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => Menupage()));
+                        if (_id.text == '001') {
+                          String emailid = 'hod@gmail.com';
+                          String password = 'example-hod';
+                          //if (id.isNotEmpty && password.isNotEmpty) {
+                          await authenticationNotifier.login(
+                              id: emailid, password: password);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      hodpage()));
+                        } else {
+                          String emailid = 'example@email.com';
+                          String password = 'example-password';
+                          //if (id.isNotEmpty && password.isNotEmpty) {
+                          await authenticationNotifier.login(
+                              id: emailid, password: password);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      Menupage()));
+                        }
                         //}
                         // else {
                         //   ScaffoldMessenger.of(context).showSnackBar(

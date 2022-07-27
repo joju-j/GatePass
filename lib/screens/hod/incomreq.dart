@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:login_app/screens/hod/decison.dart';
 
 void main() {
-  runApp(const hodreq());
+  runApp( hodreq());
 }
+
+// class hodreq extends StatelessWidget {
+//   const hodreq({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         // Remove the debug banner
+//         debugShowCheckedModeBanner: false,
+//         title: ' x',
+//         theme: ThemeData(
+//           primarySwatch: Colors.red,
+//         ),
+//         home: HomePage());
+//   }
+// }
 
 class hodreq extends StatelessWidget {
-  const hodreq({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        // Remove the debug banner
-        debugShowCheckedModeBanner: false,
-        title: ' x',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: HomePage());
-  }
-}
-
-class HomePage extends StatelessWidget {
   // Generate some dummy data
   final List<Map<String, dynamic>> _items = List.generate(
       100,
@@ -63,7 +63,6 @@ class HomePage extends StatelessWidget {
                             print(context);
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => decision()));
-                            
                           },
                           icon: const Icon(Icons.assignment)),
                       IconButton(

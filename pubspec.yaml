@@ -30,12 +30,13 @@ dependencies:
   flutter:
     sdk: flutter
   dropdown_button2: ^1.6.2
-  provider: ^6.0.0
-  supabase: ^0.2.6 
+  provider: ^6.0.3
+  #supabase: ^0.2.6 
   #qr_flutter: ^4.0.0
-  path_provider: ^1.6.5
+  #path_provider: ^1.6.5
   flutter_barcode_scanner: ^2.0.0
   barcode_widget: ^2.0.2
+  supabase_flutter: ^0.3.2
 
 
   # The following adds the Cupertino Icons font to your application.

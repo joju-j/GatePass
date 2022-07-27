@@ -3,31 +3,31 @@ import 'package:login_app/screens/hod/decison.dart';
 import 'package:login_app/screens/hod/info.dart';
 
 void main() {
-  runApp(const history());
+  runApp(history());
 }
 
-class history extends StatelessWidget {
+// class history extends StatelessWidget {
+//   const history({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       // Remove the debug banner
+//       debugShowCheckedModeBanner: false,
+//       title: 'History',
+//       home: HomePage(),
+//     );
+//   }
+// }
+
+class history extends StatefulWidget {
   const history({Key? key}) : super(key: key);
- 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      // Remove the debug banner
-      debugShowCheckedModeBanner: false,
-      title: 'History',
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _historyState createState() => _historyState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _historyState extends State<history> {
   // This holds a list of fiction users
   // You can use data fetched from a database or a server as well
   final List<Map<String, dynamic>> _allUsers = [
