@@ -1,82 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
 
-//final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-void main() => runApp(RequestScreen());
+import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:flutter/cupertino.dart';
 
 class RequestScreen extends StatefulWidget {
+  var values;
+  RequestScreen({Key? key, required this.values}) : super(key: key);
+
   @override
-  _DateTimePickerState createState() => _DateTimePickerState();
+  _RequestScreenState createState() => _RequestScreenState();
 }
 
-class _DateTimePickerState extends State<RequestScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-final List<String> items = [
-  'CSE',
-  'ECE',
-  'EEE',
-  'CE',
-  'EI',
-  'ME',
-];
-String? selectedValue;
-
-List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
-  List<DropdownMenuItem<String>> _menuItems = [];
-  for (var item in items) {
-    _menuItems.addAll(
-      [
-        DropdownMenuItem<String>(
-          value: item,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              item,
-              style: const TextStyle(
-                fontSize: 14,
-              ),
-            ),
-          ),
-        ),
-        //If it's last item, we will not add Divider after it.
-        if (item != items.last)
-          const DropdownMenuItem<String>(
-            enabled: false,
-            child: Divider(),
-          ),
-      ],
-    );
-  }
-  return _menuItems;
-}
-
-List<int> _getDividersIndexes() {
-  List<int> _dividersIndexes = [];
-  for (var i = 0; i < (items.length * 2) - 1; i++) {
-    //Dividers indexes will be the odd indexes
-    if (i.isOdd) {
-      _dividersIndexes.add(i);
-    }
-  }
-  return _dividersIndexes;
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class _RequestScreenState extends State<RequestScreen> {
   DateTime time = DateTime.now();
 
   void _confirmbox(BuildContext context) {
@@ -93,10 +28,63 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Okay')),
-                
               ],
             ));
   }
+
+  final List<String> items = [
+    'CSE',
+    'ECE',
+    'EEE',
+    'CE',
+    'EI',
+    'ME',
+  ];
+  String? selectedValue;
+  printtime(DateTime time) {
+    print(time);
+  }
+
+  List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
+    List<DropdownMenuItem<String>> _menuItems = [];
+    for (var item in items) {
+      _menuItems.addAll(
+        [
+          DropdownMenuItem<String>(
+            value: item,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                item,
+                style: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          //If it's last item, we will not add Divider after it.
+          if (item != items.last)
+            const DropdownMenuItem<String>(
+              enabled: false,
+              child: Divider(),
+            ),
+        ],
+      );
+    }
+    return _menuItems;
+  }
+
+  List<int> _getDividersIndexes() {
+    List<int> _dividersIndexes = [];
+    for (var i = 0; i < (items.length * 2) - 1; i++) {
+      //Dividers indexes will be the odd indexes
+      if (i.isOdd) {
+        _dividersIndexes.add(i);
+      }
+    }
+    return _dividersIndexes;
+  }
+
   final clearreason = TextEditingController();
   final clearclass = TextEditingController();
   void clearText() {
@@ -104,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
     clearreason.clear();
   }
 
-  @override
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
         context: context,
@@ -172,70 +159,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 500,
                         child: Column(
                           children: [
-                            TextField(
-                              controller: clearclass,
-                              decoration: const InputDecoration(
-                                labelText: "Group Advisor:",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(100)),
-                                ),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.max,
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: <Widget>[
+                            Text(
+                              "Group Advisor: ${widget.values[0]['grpadv']} ",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 85, 31, 31),
+                                fontSize: 18,
+                                fontFamily: 'Calistoga',
+                                //fontWeight: FontWeight.bold
                               ),
                             ),
-                            // DropdownButtonHideUnderline(
-                            //   child: DropdownButton2(
-                            //     isExpanded: true,
-                            //     hint: const Text(
-                            //       '    Select Department:',
-                            //       style: TextStyle(
-                            //         fontSize: 18,
-                            //         //color: Theme.of(context).hintColor,
-                            //       ),
-                            //     ),
-                            //     items: _addDividersAfterItems(items),
-                            //     customItemsIndexes: _getDividersIndexes(),
-                            //     customItemsHeight: 5,
-                            //     value: selectedValue,
-                            //     buttonDecoration: BoxDecoration(
-                            //       borderRadius: BorderRadius.circular(100),
-                            //       border: Border.all(
-                            //         color: Colors.black26,
-                            //       ),
-                            //       color: Color.fromARGB(255, 246, 242, 242),
-                            //     ),
-                            //     dropdownDecoration: BoxDecoration(
-                            //       borderRadius: BorderRadius.circular(14),
-                            //       color: Color.fromARGB(255, 201, 181, 181),
-                            //     ),
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         selectedValue = value as String;
-                            //       });
-                            //     },
-                            //     buttonHeight: 55,
-                            //     buttonWidth: 300,
-                            //     itemHeight: 40,
-                            //     itemPadding:
-                            //         const EdgeInsets.symmetric(horizontal: 8.0),
-                            //   ),
-                            // ),
                             const SizedBox(
                               height: 20,
                             ),
-                            TextField(
-                              controller: clearclass,
-                              decoration: const InputDecoration(
-                                labelText: "CLASS:",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(100)),
-                                ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Class & Batch: S${widget.values[0]['semester']} ${widget.values[0]['dept']} ${widget.values[0]['batch']}",
+                              //
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 85, 31, 31),
+                                fontSize: 20,
+                                fontFamily: 'Calistoga',
+                                //fontWeight: FontWeight.bold
                               ),
                             ),
+   
                             const SizedBox(
                               height: 20,
                             ),
@@ -267,18 +222,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CupertinoButton(
                                   color: Color.fromARGB(12, 0, 0, 0),
                                   // Display a CupertinoDatePicker in time picker mode.
-                                  onPressed: () => _showDialog(
-                                    CupertinoDatePicker(
-                                      initialDateTime: time,
-                                      mode: CupertinoDatePickerMode.time,
+                                  onPressed: () => {
+                                    _showDialog(
+                                      CupertinoDatePicker(
+                                        initialDateTime: time,
+                                        mode: CupertinoDatePickerMode.time,
 
-                                      use24hFormat: true,
-                                      // This is called when the user changes the time.
-                                      onDateTimeChanged: (DateTime newTime) {
-                                        setState(() => time = newTime);
-                                      },
+                                        use24hFormat: true,
+                                        // This is called when the user changes the time.
+                                        onDateTimeChanged: (DateTime newTime) {
+                                          setState(() => time = newTime);
+                                        },
+                                      ),
                                     ),
-                                  ),
+                                  },
                                   // In this example, the time value is formatted manually. You can use intl package to
                                   // format the value based on the user's locale settings.
                                   child: Text(
@@ -288,6 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color.fromARGB(255, 85, 31, 31)),
                                   ),
                                 ),
+
                                 // Icon(
                                 //   Icons.access_time,
                                 //   size: 20.0,
@@ -326,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             ElevatedButton(
                               onPressed: () => {
-                                
+                                printtime(time),
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -347,7 +305,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               'Your request has been submitted.'),
                                                           actions: [
                                                             TextButton(
-                                                              onPressed: () {
+                                                              onPressed:
+                                                                  () async {
+                                                                    
+                                                                await SupabaseCredentials.request(
+                                                                    widget
+                                                                        .values,
+                                                                    clearreason
+                                                                        .text,
+                                                                    time);
                                                                 clearText();
                                                                 Navigator.of(
                                                                         context)

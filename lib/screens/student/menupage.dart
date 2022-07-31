@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/student/pending.dart';
 import 'package:login_app/screens/student/requestpage.dart';
+import 'package:login_app/supabase/supabase.credentials.dart';
 import 'requestpage.dart';
 
-
 class Menupage extends StatelessWidget {
+  Menupage({required this.title});
+  var title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +52,9 @@ class Menupage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        RequestScreen()))
+                                    builder: (context) =>
+                                        RequestScreen(values: title))),
+                            print(title),
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.only(
@@ -77,12 +80,25 @@ class Menupage extends StatelessWidget {
                           height: 45,
                         ),
                         ElevatedButton(
-                          onPressed: () => {
+                          onPressed: () async {
+                            String awaiting;
+                            var res =
+                                await SupabaseCredentials.pendingstatus(title);
+                            if (res[0]['permission'] == null) {
+                              awaiting = "Waiting for response";
+                            } else if (res[0]['permission'] == false) {
+                              awaiting = "Permssion Denied";
+                            } else {
+                              awaiting = "Permssion Granted";
+                            }
+
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        pendingpage()))
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      pendingpage(
+                                          values: title, decision: awaiting,perms:res)),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.only(

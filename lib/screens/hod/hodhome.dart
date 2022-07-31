@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/hod/history.dart';
 import 'package:login_app/screens/hod/incomreq.dart';
+import 'package:login_app/supabase/supabase.credentials.dart';
 
 class hodpage extends StatelessWidget {
+  var title;
+  hodpage({required this.title});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +40,15 @@ class hodpage extends StatelessWidget {
                     height: 35,
                   ),
                   ElevatedButton(
-                    onPressed: () => {
+                    onPressed: () async {
+                      var allres = await SupabaseCredentials.allrequests(title);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => hodreq())),
+                              builder: (BuildContext context) => hodreq(
+                                    userid: title,
+                                    results: allres,
+                                  )));
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(

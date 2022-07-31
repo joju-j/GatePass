@@ -179,7 +179,7 @@ class _LoginpageState extends State<Loginpage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          hodpage()));
+                                          hodpage(title:result1)));
                             } else {
                               errorbox(context);
                               print("INVALID LOGIN");
@@ -217,7 +217,7 @@ class _LoginpageState extends State<Loginpage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          Menupage()));
+                                          Menupage(title: result2)));
                             } else {
                               print("INVALID STUDENT LOGIN");
                               errorbox(context);
