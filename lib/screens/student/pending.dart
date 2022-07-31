@@ -47,7 +47,7 @@ class pendingpage extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       // Remove the box
-                      Navigator.of(context).pop();
+
                       Navigator.of(context).pop();
                     },
                     child: const Text('Okay')),
@@ -70,7 +70,8 @@ class pendingpage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => CreateQr(values:values,perms:perms)));
+                              builder: (BuildContext context) =>
+                                  CreateQr(values: values, perms: perms)));
                     },
                     child: const Text('GO!')),
               ],
@@ -154,18 +155,18 @@ class pendingpage extends StatelessWidget {
                         {
                           errorbox(context),
                         }
-                      else if (decision == 'Permission Denied')
+                      else if (perms[0]['permission'] == false)
                         {
                           deniedbox(context),
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      pendingpage(
-                                        values: values,
-                                        decision: decision,
-                                        perms: perms,
-                                      ))),
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (BuildContext context) =>
+                          //             pendingpage(
+                          //               values: values,
+                          //               decision: decision,
+                          //               perms: perms,
+                          //             ))),
                         }
                       else
                         {acceptbox(context)}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/hod/decison.dart';
+import 'package:login_app/screens/hod/decision.dart';
 import 'package:login_app/screens/hod/info.dart';
 
 void main() {

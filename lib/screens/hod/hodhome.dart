@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/hod/history.dart';
 import 'package:login_app/screens/hod/incomreq.dart';
@@ -78,7 +80,7 @@ class hodpage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(
-                          left: 40, right: 40, top: 10, bottom: 10),
+                          left: 110, right: 110, top: 10, bottom: 10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                       primary: Color.fromARGB(255, 122, 30, 172),
