@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
-// class CreateQr extends StatefulWidget {
-//   const CreateQr({Key? key}) : super(key: key);
+class CreateQr extends StatefulWidget {
+  const CreateQr({Key? key}) : super(key: key);
 
-//   @override
-//   _CreateQrState createState() => _CreateQrState();
-// }
+  @override
+  _CreateQrState createState() => _CreateQrState();
+}
 
-class CreateQr extends StatelessWidget {
+class _CreateQrState extends State<CreateQr> {
   String qr = '5654315778';
   @override
+  void initState() {
+    //secureScreen();
+    super.initState();
+  }
+
+  //disable screenshots and record screen in current screen
+
+  @override
   Widget build(BuildContext context) {
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,

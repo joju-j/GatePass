@@ -31,12 +31,14 @@ dependencies:
     sdk: flutter
   dropdown_button2: ^1.6.2
   provider: ^6.0.3
+  #provider: ^5.0.0
   #supabase: ^0.2.6 
   #qr_flutter: ^4.0.0
   #path_provider: ^1.6.5
   flutter_barcode_scanner: ^2.0.0
   barcode_widget: ^2.0.2
   supabase_flutter: ^0.3.2
+  flutter_windowmanager: ^0.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -46,6 +48,7 @@ dependencies:
   lottie: ^1.2.2
   font_awesome_flutter: ^9.2.0
   get_it: ^7.2.0
+  flutter_local_notifications: ^9.7.0
   #firebase_core: ^1.19.1
 
 dev_dependencies:
@@ -70,7 +73,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  plugin:
+    platforms:
+      android:
+        package: io.adaptant.labs.flutter_windowmanager
+        pluginClass: FlutterWindowManagerPlugin
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/Start.jpg

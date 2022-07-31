@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_app/supabase/supabase.credentials.dart';
 
 //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 void main() => runApp(RequestScreen());
@@ -26,12 +27,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 final List<String> items = [
-  'HOD CSE',
-  'HOD ECE',
-  'HOD EEE',
-  'HOD CE',
-  'HOD EI',
-  'HOD ME'
+  'CSE',
+  'ECE',
+  'EEE',
+  'CE',
+  'EI',
+  'ME',
 ];
 String? selectedValue;
 
@@ -78,50 +79,24 @@ List<int> _getDividersIndexes() {
 class _HomeScreenState extends State<HomeScreen> {
   DateTime time = DateTime.now();
 
-  // void _confirmbox(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) => AlertDialog(
-  //             title: const Text('Please Confirm'),
-  //             content: const Text('Do you want to submit this request?'),
-  //             actions: [
-  //               // The "Yes" button
-  //               TextButton(
-  //                   onPressed: () {
-  //                     // Remove the box
-  //                     Navigator.of(context).pop();
-  //                     showDialog(
-  //                         context: context,
-  //                         builder: (BuildContext ctx) {
-  //                           return AlertDialog(
-  //                             content: const Text(
-  //                                 'Your request has been submitted.'),
-  //                             actions: [
-  //                               TextButton(
-  //                                 onPressed: () {
-  //                                   Navigator.push(
-  //                                       context,
-  //                                       MaterialPageRoute(
-  //                                           builder: (BuildContext context) =>
-  //                                               Menupage()));
-  //                                 },
-  //                                 child: const Text('Return Home'),
-  //                               ),
-  //                             ],
-  //                           );
-  //                         });
-  //                     // Close the dialog
-  //                   },
-  //                   child: const Text('Yes')),
-  //               TextButton(
-  //                   onPressed: () {
-  //                     // Close the dialog
-  //                     Navigator.of(context).pop();
-  //                   },
-  //                   child: const Text('No'))
-  //             ],
-  //           ));
-  // }
+  void _confirmbox(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('User does not exist'),
+              content: const Text('Please Enter A Valid User ID'),
+              actions: [
+                // The "Yes" button
+                TextButton(
+                    onPressed: () {
+                      // Remove the box
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Okay')),
+                
+              ],
+            ));
+  }
   final clearreason = TextEditingController();
   final clearclass = TextEditingController();
   void clearText() {
@@ -197,43 +172,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 500,
                         child: Column(
                           children: [
-                            DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                isExpanded: true,
-                                hint: const Text(
-                                  '    Select HOD:',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    //color: Theme.of(context).hintColor,
-                                  ),
+                            TextField(
+                              controller: clearclass,
+                              decoration: const InputDecoration(
+                                labelText: "Group Advisor:",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100)),
                                 ),
-                                items: _addDividersAfterItems(items),
-                                customItemsIndexes: _getDividersIndexes(),
-                                customItemsHeight: 5,
-                                value: selectedValue,
-                                buttonDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                    color: Colors.black26,
-                                  ),
-                                  color: Color.fromARGB(255, 246, 242, 242),
-                                ),
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Color.fromARGB(255, 201, 181, 181),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value as String;
-                                  });
-                                },
-                                buttonHeight: 55,
-                                buttonWidth: 300,
-                                itemHeight: 40,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
                               ),
                             ),
+                            // DropdownButtonHideUnderline(
+                            //   child: DropdownButton2(
+                            //     isExpanded: true,
+                            //     hint: const Text(
+                            //       '    Select Department:',
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         //color: Theme.of(context).hintColor,
+                            //       ),
+                            //     ),
+                            //     items: _addDividersAfterItems(items),
+                            //     customItemsIndexes: _getDividersIndexes(),
+                            //     customItemsHeight: 5,
+                            //     value: selectedValue,
+                            //     buttonDecoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(100),
+                            //       border: Border.all(
+                            //         color: Colors.black26,
+                            //       ),
+                            //       color: Color.fromARGB(255, 246, 242, 242),
+                            //     ),
+                            //     dropdownDecoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(14),
+                            //       color: Color.fromARGB(255, 201, 181, 181),
+                            //     ),
+                            //     onChanged: (value) {
+                            //       setState(() {
+                            //         selectedValue = value as String;
+                            //       });
+                            //     },
+                            //     buttonHeight: 55,
+                            //     buttonWidth: 300,
+                            //     itemHeight: 40,
+                            //     itemPadding:
+                            //         const EdgeInsets.symmetric(horizontal: 8.0),
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -339,6 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             ElevatedButton(
                               onPressed: () => {
+                                
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>

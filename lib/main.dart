@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'supabase/app.provider.dart';
 import 'supabase/app.routes.dart';
 import './screens/loginpage.dart';
-import '../supabase/authentication.notifier.dart';
+
 
 void main() {
   runApp(MyApp());

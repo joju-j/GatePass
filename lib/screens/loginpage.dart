@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/qrcode/scan.dart';
+import 'package:login_app/supabase/supabase.credentials.dart';
 import 'package:provider/provider.dart';
 import '../supabase/authentication.notifier.dart';
+import '../supabase/supabase.credentials.dart';
 import 'hod/hodhome.dart';
 import 'student/menupage.dart';
 
@@ -26,6 +28,24 @@ class _LoginpageState extends State<Loginpage> {
     final AuthenticationNotifier authenticationNotifier =
         Provider.of<AuthenticationNotifier>(context, listen: false);
 
+    void errorbox(BuildContext context) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('User does not exist'),
+                content: const Text('Please Enter A Valid User ID'),
+                actions: [
+                  // The "Yes" button
+                  TextButton(
+                      onPressed: () {
+                        // Remove the box
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Okay')),
+                ],
+              ));
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -46,7 +66,7 @@ class _LoginpageState extends State<Loginpage> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 200,
                 width: 300,
               ),
@@ -138,68 +158,73 @@ class _LoginpageState extends State<Loginpage> {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () async {
-                        if (_id.text == '001') {
-                          String emailid = 'hod@gmail.com';
-                          String password = 'example-hod';
-                          //if (id.isNotEmpty && password.isNotEmpty) {
-                          await authenticationNotifier.login(
-                              id: emailid, password: password);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      hodpage()));
-                        } else {
-                          String emailid = 'example@email.com';
-                          String password = 'example-password';
-                          //if (id.isNotEmpty && password.isNotEmpty) {
-                          await authenticationNotifier.login(
-                              id: emailid, password: password);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      Menupage()));
+                        if (_id.text.isNotEmpty && pass.text.isNotEmpty) {
+                          if (_id.text == '1000') {
+                            String emailid = 'hod@gmail.com';
+                            String password = 'example-hod';
+
+                            await authenticationNotifier.login(
+                                id: emailid, password: password);
+
+                            var result1 = await SupabaseCredentials.getAdmin(
+                                _id.text, pass.text);
+                            if (result1.length > 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "Successfully Logged In ${result1[0]['name']}"),
+                                ),
+                              );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          hodpage()));
+                            } else {
+                              errorbox(context);
+                              print("INVALID LOGIN");
+                            }
+                          } else if ((_id.text == 'security') &&
+                              (pass.text == '0000')) {
+                            String emailid = 'security@email.com';
+                            String password = 'security-pass';
+                            var result = await authenticationNotifier.login(
+                                id: emailid, password: password);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const ScanScreen()));
+                          } else {
+                            String emailid = 'example@email.com';
+                            String password = 'example-password';
+                            //if (id.isNotEmpty && password.isNotEmpty) {
+                            var result = await authenticationNotifier.login(
+                                id: emailid, password: password);
+
+                            var result2 = await SupabaseCredentials.getData(
+                                _id.text, pass.text);
+
+                            if (result2.length > 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "Successfully Logged In ${result2[0]['name']}"),
+                                ),
+                              );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          Menupage()));
+                            } else {
+                              print("INVALID STUDENT LOGIN");
+                              errorbox(context);
+                            }
+                          }
                         }
-                        //}
-                        // else {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //           content: Text("Check entered details")));
-                        // }
-                        // if (_id.text == 'admin')
-                        //   {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (BuildContext context) =>
-                        //                 hodpage())),
-                        //     //  Navigator.of(context).push(MaterialPageRoute(builder:
-                        //     //  (context)=>CreateQr(qr: _id.text)))
-                        //   }
-                        // else if (_id.text == 'security')
-                        //   {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (BuildContext context) =>
-                        //                 const ScanScreen())),
-                        //   }
-                        // else
-                        //   {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (BuildContext context) =>
-                        //                 Menupage())),
-                        //   }
                       },
-                      // onLongPress: () => {
-                      //   Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (BuildContext context) => Menupage())),
-                      // },
                     ),
                     const SizedBox(
                       height: 17,
