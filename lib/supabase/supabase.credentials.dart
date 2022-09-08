@@ -83,13 +83,14 @@ class SupabaseCredentials {
   }
 
   static acceptreq(var values) async {
-    String newqrcode = values[0]['id'] + getRandomString(5);
+    print(values['id']);
+    String newqrcode = values['id'].toString() + getRandomString(5);
     var acc = await supabaseClient
         .from('RequestTable')
         .update({'permission': true, 'qrcode': newqrcode}).match(
-            {'id': values['id']}).execute();
+            {'request_id': values['request_id']}).execute();
+    print(acc.error);
   }
-  
 
   static allqr(String value) async {
     var qr = await supabaseClient

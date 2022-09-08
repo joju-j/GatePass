@@ -11,10 +11,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Homepage"),
-        centerTitle: true,
-      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -38,8 +34,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget flatButton(String text, Widget widget) {
-    return FlatButton(
-      padding: EdgeInsets.all(15.0),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.blue, width: 3.0),
+            borderRadius: BorderRadius.circular(20.0)),
+      ),
       onPressed: () async {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => widget));
@@ -48,9 +49,6 @@ class _HomePageState extends State<HomePage> {
         text,
         style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
       ),
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.blue, width: 3.0),
-          borderRadius: BorderRadius.circular(20.0)),
     );
   }
 }

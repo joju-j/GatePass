@@ -143,45 +143,51 @@ class _RequestScreenState extends State<RequestScreen> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 227, 144, 135),
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        width: 260,
-                        height: 500,
-                        child: Column(
-                          children: [
-                            // Row(
-                            //   mainAxisSize: MainAxisSize.max,
-                            //   mainAxisAlignment: MainAxisAlignment.start,
-                            //   children: <Widget>[
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Row(
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: <Widget>[
+                        Text(
+                          "Group Advisor: ${widget.values[0]['grpadv']} ",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 85, 31, 31),
+                            fontSize: 20,
+                            fontFamily: 'Calistoga',
+                            //fontWeight: FontWeight.bold
+                          ),
+                        ),
+
+                        Text(
+                          "Class & Batch: S${widget.values[0]['semester']} ${widget.values[0]['dept']} ${widget.values[0]['batch']}",
+                          //
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 85, 31, 31),
+                            fontSize: 20,
+                            fontFamily: 'Calistoga',
+                            //fontWeight: FontWeight.bold
+                          ),
+                        ),
+
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
                             Text(
-                              "Group Advisor: ${widget.values[0]['grpadv']} ",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 85, 31, 31),
-                                fontSize: 18,
-                                fontFamily: 'Calistoga',
-                                //fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Class & Batch: S${widget.values[0]['semester']} ${widget.values[0]['dept']} ${widget.values[0]['batch']}",
-                              //
+                              "Time of exit:  ",
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 color: Color.fromARGB(255, 85, 31, 31),
@@ -190,179 +196,132 @@ class _RequestScreenState extends State<RequestScreen> {
                                 //fontWeight: FontWeight.bold
                               ),
                             ),
-   
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // const TextField(
-                            //   decoration: InputDecoration(
-                            //     labelText: "TIME:",
-                            //     filled: true,
-                            //     fillColor: Colors.white,
-                            //     border: OutlineInputBorder(
-                            //       borderRadius:
-                            //           BorderRadius.all(Radius.circular(100)),
-                            //     ),
-                            //   ),
-                            // ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Time of exit:  ",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 85, 31, 31),
-                                    fontSize: 12,
-                                    fontFamily: 'Calistoga',
-                                    //fontWeight: FontWeight.bold
+                            CupertinoButton(
+                              color: Color.fromARGB(12, 0, 0, 0),
+                              // Display a CupertinoDatePicker in time picker mode.
+                              onPressed: () => {
+                                _showDialog(
+                                  CupertinoDatePicker(
+                                    initialDateTime: time,
+                                    mode: CupertinoDatePickerMode.time,
+
+                                    use24hFormat: true,
+                                    // This is called when the user changes the time.
+                                    onDateTimeChanged: (DateTime newTime) {
+                                      setState(() => time = newTime);
+                                    },
                                   ),
                                 ),
-                                CupertinoButton(
-                                  color: Color.fromARGB(12, 0, 0, 0),
-                                  // Display a CupertinoDatePicker in time picker mode.
-                                  onPressed: () => {
-                                    _showDialog(
-                                      CupertinoDatePicker(
-                                        initialDateTime: time,
-                                        mode: CupertinoDatePickerMode.time,
-
-                                        use24hFormat: true,
-                                        // This is called when the user changes the time.
-                                        onDateTimeChanged: (DateTime newTime) {
-                                          setState(() => time = newTime);
-                                        },
-                                      ),
-                                    ),
-                                  },
-                                  // In this example, the time value is formatted manually. You can use intl package to
-                                  // format the value based on the user's locale settings.
-                                  child: Text(
-                                    '${time.hour}:${time.minute}',
-                                    style: const TextStyle(
-                                        fontSize: 22.0,
-                                        color: Color.fromARGB(255, 85, 31, 31)),
-                                  ),
-                                ),
-
-                                // Icon(
-                                //   Icons.access_time,
-                                //   size: 20.0,
-                                //   semanticLabel: 'CLick',
-                                // ),
-                              ],
-                            ),
-                            // SizedBox(
-                            //   height: 10.0,
-                            // ),
-
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            SizedBox(
-                              width: 500,
-                              child: TextField(
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                                controller: clearreason,
-                                decoration: InputDecoration(
-                                  labelText: "REASON:",
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 50, horizontal: 20),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                ),
+                              },
+                              // In this example, the time value is formatted manually. You can use intl package to
+                              // format the value based on the user's locale settings.
+                              child: Text(
+                                '${time.hour}:${time.minute}',
+                                style: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Color.fromARGB(255, 85, 31, 31)),
                               ),
                             ),
-                            const SizedBox(
-                              height: 30,
+                          ],
+                        ),
+
+                        SizedBox(
+                          width: MediaQuery.of(context).size.height * 0.4,
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: clearreason,
+                            decoration: InputDecoration(
+                              labelText: "REASON:",
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 50, horizontal: 20),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
                             ),
-                            ElevatedButton(
-                              onPressed: () => {
-                                printtime(time),
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                          title: const Text('Please Confirm'),
-                                          content: const Text(
-                                              'Do you want to submit this request?'),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  //Navigator.of(context).push();
-                                                  showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (BuildContext ctx) {
-                                                        return AlertDialog(
-                                                          content: const Text(
-                                                              'Your request has been submitted.'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed:
-                                                                  () async {
-                                                                    
-                                                                await SupabaseCredentials.request(
+                          ),
+                        ),
+
+                        ElevatedButton(
+                          onPressed: () => {
+                            printtime(time),
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: const Text('Please Confirm'),
+                                      content: const Text(
+                                          'Do you want to submit this request?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              //Navigator.of(context).push();
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext ctx) {
+                                                    return AlertDialog(
+                                                      content: const Text(
+                                                          'Your request has been submitted.'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            await SupabaseCredentials
+                                                                .request(
                                                                     widget
                                                                         .values,
                                                                     clearreason
                                                                         .text,
                                                                     time);
-                                                                clearText();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: const Text(
-                                                                  'Okay'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      });
-                                                  // Close the dialog
-                                                },
-                                                child: const Text('Yes')),
-                                            TextButton(
-                                                onPressed: () {
-                                                  // Close the dialog
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text('No'))
-                                          ],
-                                        ))
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.only(
-                                    left: 40, right: 40, top: 10, bottom: 10),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                primary: Color.fromARGB(255, 122, 30, 172),
-                                shadowColor: Colors.black,
-                                elevation: 10,
-                              ),
-                              child: Text(
-                                'SUBMIT REQUEST',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  //fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                                                            clearText();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Okay'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  });
+                                              // Close the dialog
+                                            },
+                                            child: const Text('Yes')),
+                                        TextButton(
+                                            onPressed: () {
+                                              // Close the dialog
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('No'))
+                                      ],
+                                    ))
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            primary: Color.fromARGB(255, 122, 30, 172),
+                            shadowColor: Colors.black,
+                            elevation: 10,
+                          ),
+                          child: Text(
+                            'SUBMIT REQUEST',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              //fontWeight: FontWeight.bold),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -393,7 +352,7 @@ class _DatePickerItem extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: children,
