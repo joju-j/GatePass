@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:intl/intl.dart';
 import 'package:supabase/supabase.dart';
 
@@ -70,16 +73,77 @@ class SupabaseCredentials {
     print('select error: ${allres.error}');
     return allres.data;
   }
-  // static printpending(var values) async {
-  //   var response3 = await supabaseClient
-  //       .from('GrpAdvisorTable')
-  //       .select(('name,dept'))
-  //       .match({'id': idd, 'passw': password}).execute();
 
-  //   print('response2.error: ${response3.error}');
-  //   print('Grp Advisor,Dept: ${response3.data}');
-  //   return response3.data;
-  // }
+  static denyreq(var values) async {
+    var deny = await supabaseClient
+        .from('RequestTable')
+        .update({'permission': false}).match(
+            {'request_id': values['request_id']}).execute();
+    print(deny.error);
+  }
+
+  static acceptreq(var values) async {
+    String newqrcode = values[0]['id'] + getRandomString(5);
+    var acc = await supabaseClient
+        .from('RequestTable')
+        .update({'permission': true, 'qrcode': newqrcode}).match(
+            {'id': values['id']}).execute();
+  }
+  
+
+  static allqr(String value) async {
+    var qr = await supabaseClient
+        .from('RequestTable')
+        .select('request_id,id,exit_time')
+        .match({'qrcode': value}).execute();
+    return qr.data;
+  }
+
+  static deleterow1(var value) async {
+    await supabaseClient.from('HistoryTable').insert([
+      {
+        'id': value[0]['id'],
+        'req_id': value[0]['request_id'],
+        'name': value[0]['name'],
+        'dept': value[0]['dept'],
+        'sem': value[0]['sem'],
+        'batch': value[0]['batch'],
+        'exit_time': value[0]['id'],
+        'permission': value[0]['id'],
+        'grpadv': value[0]['grpadv'],
+        'qrcode': value[0]['qrcode'],
+        'note': "Student has left."
+      }
+    ]).execute();
+
+    await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .match({'request_id': value[0]['request_id']}).execute();
+  }
+
+  static deleterow2(var value) async {
+    await supabaseClient.from('HistoryTable').insert([
+      {
+        'id': value[0]['id'],
+        'req_id': value[0]['request_id'],
+        'name': value[0]['name'],
+        'dept': value[0]['dept'],
+        'sem': value[0]['sem'],
+        'batch': value[0]['batch'],
+        'exit_time': value[0]['id'],
+        'permission': value[0]['id'],
+        'grpadv': value[0]['grpadv'],
+        'qrcode': value[0]['qrcode'],
+        'note': "Student did not get permission."
+      }
+    ]).execute();
+
+    await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .match({'request_id': value[0]['request_id']}).execute();
+  }
 
   static addData() async {
     await supabaseClient.from('LoginTable').insert([
@@ -88,5 +152,16 @@ class SupabaseCredentials {
   }
 }
 
+// void main() {
+//   print(getRandomString(5));  // 5GKjb
+//   print(getRandomString(10)); // LZrJOTBNGA
+//   print(getRandomString(15)); // PqokAO1BQBHyJVK
+// }
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 //https://jlygdhtbjnlgrohiesdk.supabase.co
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpseWdkaHRiam5sZ3JvaGllc2RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTc5NzA3NzQsImV4cCI6MTk3MzU0Njc3NH0.w6Z_zty4oqdjqQCxMM3p8ATuqLn1alBrOSbA-En3sX8
