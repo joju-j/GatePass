@@ -42,15 +42,27 @@ class hodpage extends StatelessWidget {
                     height: 35,
                   ),
                   ElevatedButton(
+                    //incoming req button
                     onPressed: () async {
                       var allres = await SupabaseCredentials.allrequests(title);
-                      Navigator.push(
+                      if (allres.length > 0) {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => hodreq(
-                                    userid: title,
-                                    results: allres,
-                                  )));
+                            builder: (BuildContext context) => hodreq(
+                              userid: title,
+                              results: allres,
+                            ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                "No requests available at the moment! Try again later!"),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(

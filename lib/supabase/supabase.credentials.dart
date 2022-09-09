@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'dart:math';
 
 import 'package:intl/intl.dart';
@@ -69,7 +70,11 @@ class SupabaseCredentials {
     var allres = await supabaseClient
         .from('RequestTable')
         .select()
-        .match({'grpadv': grpadvval[0]['name']}).execute();
+        .match({'grpadv': grpadvval[0]['name']})
+        .is_('permission', null)
+        .execute();
+    //.match({'grpadv': grpadvval[0]['name']}).execute();
+    print('select data: ${allres.data}');
     print('select error: ${allres.error}');
     return allres.data;
   }
@@ -87,7 +92,8 @@ class SupabaseCredentials {
     String newqrcode = values['id'].toString() + getRandomString(5);
     var acc = await supabaseClient
         .from('RequestTable')
-        .update({'permission': true, 'qrcode': newqrcode}).match(
+        .update({'permission': true, 'qrcode': newqrcode})
+        .match(
             {'request_id': values['request_id']}).execute();
     print(acc.error);
   }
@@ -109,8 +115,8 @@ class SupabaseCredentials {
         'dept': value[0]['dept'],
         'sem': value[0]['sem'],
         'batch': value[0]['batch'],
-        'exit_time': value[0]['id'],
-        'permission': value[0]['id'],
+        'exit_time': value[0]['exit_time'],
+        'permission': value[0]['permission'],
         'grpadv': value[0]['grpadv'],
         'qrcode': value[0]['qrcode'],
         'note': "Student has left."
