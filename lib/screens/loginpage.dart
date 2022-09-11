@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/main.dart';
 import 'package:login_app/screens/qrcode/scan.dart';
+import 'package:login_app/screens/qrcode/scan2.dart';
 import 'package:login_app/supabase/supabase.credentials.dart';
 import 'package:provider/provider.dart';
 import '../supabase/authentication.notifier.dart';
@@ -179,13 +181,12 @@ class _LoginpageState extends State<Loginpage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          hodpage(title:result1)));
+                                          hodpage(title: result1)));
                             } else {
                               errorbox(context);
                               print("INVALID LOGIN");
                             }
-                          } else if ((_id.text == 'security') &&
-                              (pass.text == '0000')) {
+                          } else if ((_id.text == 's') && (pass.text == '0')) {
                             String emailid = 'security@email.com';
                             String password = 'security-pass';
                             var result = await authenticationNotifier.login(
@@ -195,7 +196,7 @@ class _LoginpageState extends State<Loginpage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        const ScanScreen()));
+                                        ScanScreen()));
                           } else {
                             String emailid = 'example@email.com';
                             String password = 'example-password';

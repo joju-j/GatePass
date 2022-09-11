@@ -11,6 +11,7 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 class CreateQr extends StatelessWidget {
   var values, perms;
+  
   CreateQr({required this.values, required this.perms});
   checkqr(context) {
     String qr = perms[0]['qrcode'];
@@ -20,8 +21,8 @@ class CreateQr extends StatelessWidget {
   //disable screenshots and record screen in current screen
 
   @override
-  Widget build(BuildContext context) {
-    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  Widget build(BuildContext context)  {
+     FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,

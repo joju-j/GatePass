@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wayout_app">
+    package="com.example.login_app">
    <application
         android:label="WayOut App"
         android:name="${applicationName}"

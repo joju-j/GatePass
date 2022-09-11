@@ -18,7 +18,7 @@ class SupabaseCredentials {
         .select(('id,name,semester,dept,batch,grpadv'))
         .match({'id': admissno, 'pass': password}).execute();
 
-    print('response2.error: ${response2.error}');
+    print('Login error: ${response2.error}');
     print('ID,Name,Sem,Dept,Batch: ${response2.data}');
     return response2.data;
   }
@@ -29,7 +29,7 @@ class SupabaseCredentials {
         .select(('name,dept'))
         .match({'id': idd, 'passw': password}).execute();
 
-    print('response2.error: ${response3.error}');
+    print('Grp adv login error: ${response3.error}');
     print('Grp Advisor,Dept: ${response3.data}');
     return response3.data;
   }
@@ -51,7 +51,7 @@ class SupabaseCredentials {
         'exit_time': formatteddate
       }
     ]).execute();
-    print(res.error);
+    print('request insert error:${res.error}');
   }
 
   static pendingstatus(var values) async {
@@ -62,7 +62,7 @@ class SupabaseCredentials {
         .order('request_id', ascending: false)
         .execute();
 
-    print('response2.error: ${response5.error}');
+    print('pending data error: ${response5.error}');
     return response5.data;
   }
 
@@ -73,9 +73,9 @@ class SupabaseCredentials {
         .match({'grpadv': grpadvval[0]['name']})
         .is_('permission', null)
         .execute();
-    //.match({'grpadv': grpadvval[0]['name']}).execute();
-    print('select data: ${allres.data}');
-    print('select error: ${allres.error}');
+
+    print('select all data: ${allres.data}');
+    print('select all error: ${allres.error}');
     return allres.data;
   }
 
@@ -92,8 +92,7 @@ class SupabaseCredentials {
     String newqrcode = values['id'].toString() + getRandomString(5);
     var acc = await supabaseClient
         .from('RequestTable')
-        .update({'permission': true, 'qrcode': newqrcode})
-        .match(
+        .update({'permission': true, 'qrcode': newqrcode}).match(
             {'request_id': values['request_id']}).execute();
     print(acc.error);
   }
@@ -107,7 +106,7 @@ class SupabaseCredentials {
   }
 
   static deleterow1(var value) async {
-    await supabaseClient.from('HistoryTable').insert([
+    final res = await supabaseClient.from('HistoryTable').insert([
       {
         'id': value[0]['id'],
         'req_id': value[0]['request_id'],
@@ -122,7 +121,8 @@ class SupabaseCredentials {
         'note': "Student has left."
       }
     ]).execute();
-
+    print('history error: ${res.error}');
+    print('history data: ${res.data}');
     await supabaseClient
         .from('RequestTable')
         .delete()

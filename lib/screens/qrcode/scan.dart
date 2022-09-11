@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key? key}) : super(key: key);
@@ -30,7 +32,8 @@ class _ScanScreenState extends State<ScanScreen> {
               height: 16.0,
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.grey.shade700),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.shade700),
                 onPressed: scanQR,
                 child: Text("Scan Your QR Code"))
           ],
@@ -40,25 +43,28 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> scanQR() async {
-    try {
-      FlutterBarcodeScanner.scanBarcode("#00FF00", "Cancel", true, ScanMode.QR)
-          .then((value) {
-        setState(() async {
-          // qr = value;
-          var qrdata = await SupabaseCredentials.allqr(value);
-          if (qrdata.length > 0) {
-            qr = 'Permssion to leave granted';
-            await SupabaseCredentials.deleterow1(qrdata);
-          } else {
-            qr = 'Permission Declined';
-            await SupabaseCredentials.deleterow2(qrdata);
-          }
-        });
-      });
-    } catch (e) {
-      setState(() {
-        qr = "unable to read the QR Code";
-      });
+    //try {
+
+    print("--------------------------------------------");
+    var value = await FlutterBarcodeScanner.scanBarcode(
+        "#00FF00", "Cancel", true, ScanMode.QR);
+    print("#####################################------");
+    print(value);
+    var qrdata = await SupabaseCredentials.allqr(value);
+    if (qrdata.length > 0) {
+      qr = 'Permssion to leave granted';
+      await SupabaseCredentials.deleterow1(qrdata);
+    } else {
+      qr = 'Permission Declined';
+      await SupabaseCredentials.deleterow2(qrdata);
     }
+    setState(() {
+      // qr = value;
+    });
+    // } on MissingPluginException catch (_) {
+    //   setState(() {
+    //     qr = "Unable to read the QR Code";
+    //   });
+    // }
   }
 }
