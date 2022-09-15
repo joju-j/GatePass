@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:login_app/supabase/app.routes.dart';
 import 'package:provider/provider.dart';
 import 'supabase/app.provider.dart';
-import 'supabase/app.routes.dart';
 import './screens/loginpage.dart';
 
 
@@ -33,21 +32,4 @@ class Lava extends StatelessWidget {
   }
 }
 
-// class _MyAppState extends State<MyApp> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primaryColor: Colors.purple,
-//       ),
-//       title: "Login App",
-//       home: LoginView(),//LoginApp(),
-//       routes: {
-//         '/second': (context) => Menupage(),
-//         '/third': (context) => RequestScreen(),
-//         //'/fourth': (context) => DateTimePicker(),
-//       },
-//     );
-//   }
-// }
+

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'dart:math';
-
 import 'package:intl/intl.dart';
 import 'package:supabase/supabase.dart';
 
@@ -38,6 +35,10 @@ class SupabaseCredentials {
     String formatteddate = DateFormat.jms().format(timeset);
     print(formatteddate);
     print(reason);
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
+    print(currentdate);
 
     final res = await supabaseClient.from('RequestTable').insert([
       {
@@ -48,13 +49,31 @@ class SupabaseCredentials {
         'batch': values[0]['batch'],
         'grpadv': values[0]['grpadv'],
         'reason': reason,
+        'created_at': currentdate,
         'exit_time': formatteddate
       }
     ]).execute();
-    print('request insert error:${res.error}');
+    var delerror = await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .match({'id': values[0]['id']})
+        .lt('request_id', res.data[0]['request_id'])
+        .execute();
+
+    print('request delete error:${delerror.error}');
+    print('request insert data:${res.data}');
   }
 
   static pendingstatus(var values) async {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
+    var delerror = await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .not('created_at', 'eq', currentdate)
+        .execute();
+    print(delerror.error);
     var response5 = await supabaseClient
         .from('RequestTable')
         .select(('permission,qrcode,exit_time,reason'))
@@ -67,6 +86,17 @@ class SupabaseCredentials {
   }
 
   static allrequests(var grpadvval) async {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
+    var delerror = await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .match({'grpadv': grpadvval[0]['name']})
+        .not('created_at', 'eq', currentdate)
+        .execute();
+    print('duplicate error: ${delerror.error}');
+
     var allres = await supabaseClient
         .from('RequestTable')
         .select()
@@ -80,76 +110,106 @@ class SupabaseCredentials {
   }
 
   static denyreq(var values) async {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
     var deny = await supabaseClient
         .from('RequestTable')
         .update({'permission': false}).match(
             {'request_id': values['request_id']}).execute();
     print(deny.error);
+    var inserror = await supabaseClient.from('HistoryTable').insert([
+      {
+        'id': '${values['id']}',
+        'req_id': '${values['request_id']}',
+        'name': '${values['name']}',
+        'dept': '${values['dept']}',
+        'sem': '${values['sem']}',
+        'batch': '${values['batch']}',
+        'exit_time': '${values['exit_time']}',
+        'permission': false,
+        'grpadv': '${values['grpadv']}',
+        'note': "Student has been denied",
+        'created': currentdate,
+        'reason': '${values['reason']}'
+      }
+    ]).execute();
+    print("Insert error for deny: ${inserror.error}");
+    print("Insert data for deny: ${inserror.data}");
+    await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .match({'request_id': values['request_id']}).execute();
   }
 
   static acceptreq(var values) async {
     print(values['id']);
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
     String newqrcode = values['id'].toString() + getRandomString(5);
     var acc = await supabaseClient
         .from('RequestTable')
         .update({'permission': true, 'qrcode': newqrcode}).match(
             {'request_id': values['request_id']}).execute();
+    final res = await supabaseClient.from('HistoryTable').insert([
+      {
+        'id': '${values['id']}',
+        'req_id': '${values['request_id']}',
+        'name': '${values['name']}',
+        'dept': '${values['dept']}',
+        'sem': '${values['sem']}',
+        'batch': '${values['batch']}',
+        'exit_time': '${values['exit_time']}',
+        'permission': true,
+        'grpadv': '${values['grpadv']}',
+        'qrcode': newqrcode,
+        'note': "Student has not yet left.",
+        'created': currentdate,
+        'reason': '${values['reason']}'
+      }
+    ]).execute();
+    print(res.error);
     print(acc.error);
   }
 
   static allqr(String value) async {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String currentdate = formatter.format(now);
+    var delerror = await supabaseClient
+        .from('RequestTable')
+        .delete()
+        .not('created_at', 'eq', currentdate)
+        .execute();
     var qr = await supabaseClient
         .from('RequestTable')
-        .select('request_id,id,exit_time')
+        .select()
         .match({'qrcode': value}).execute();
+    print('student details:${qr.data}');
     return qr.data;
   }
 
   static deleterow1(var value) async {
-    final res = await supabaseClient.from('HistoryTable').insert([
-      {
-        'id': value[0]['id'],
-        'req_id': value[0]['request_id'],
-        'name': value[0]['name'],
-        'dept': value[0]['dept'],
-        'sem': value[0]['sem'],
-        'batch': value[0]['batch'],
-        'exit_time': value[0]['exit_time'],
-        'permission': value[0]['permission'],
-        'grpadv': value[0]['grpadv'],
-        'qrcode': value[0]['qrcode'],
-        'note': "Student has left."
-      }
-    ]).execute();
-    print('history error: ${res.error}');
-    print('history data: ${res.data}');
+    //print(value.data);
+    var acc = await supabaseClient
+        .from('HistoryTable')
+        .update({'note': 'Student has left'}).match(
+            {'req_id': value[0]['request_id']}).execute();
+    // print('new history table:${acc.data}');
+    print('history error: ${acc.error}');
+    // print('history data: ${acc.data}');
     await supabaseClient
         .from('RequestTable')
         .delete()
         .match({'request_id': value[0]['request_id']}).execute();
   }
 
-  static deleterow2(var value) async {
-    await supabaseClient.from('HistoryTable').insert([
-      {
-        'id': value[0]['id'],
-        'req_id': value[0]['request_id'],
-        'name': value[0]['name'],
-        'dept': value[0]['dept'],
-        'sem': value[0]['sem'],
-        'batch': value[0]['batch'],
-        'exit_time': value[0]['id'],
-        'permission': value[0]['id'],
-        'grpadv': value[0]['grpadv'],
-        'qrcode': value[0]['qrcode'],
-        'note': "Student did not get permission."
-      }
-    ]).execute();
-
-    await supabaseClient
-        .from('RequestTable')
-        .delete()
-        .match({'request_id': value[0]['request_id']}).execute();
+  static showhistory() async {
+    var his = await supabaseClient.from('HistoryTable').select().execute();
+    print('show history error :${his.error}');
+    print('show history data :${his.data}');
+    return his.data;
   }
 
   static addData() async {
@@ -170,5 +230,3 @@ Random _rnd = Random();
 
 String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-//https://jlygdhtbjnlgrohiesdk.supabase.co
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpseWdkaHRiam5sZ3JvaGllc2RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTc5NzA3NzQsImV4cCI6MTk3MzU0Njc3NH0.w6Z_zty4oqdjqQCxMM3p8ATuqLn1alBrOSbA-En3sX8

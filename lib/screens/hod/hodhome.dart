@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/hod/history.dart';
-import 'package:login_app/screens/hod/incomreq.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:login_app/screens/hod/historylist.dart';
+import 'package:login_app/screens/hod/requestlist.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 
 class hodpage extends StatelessWidget {
   var title;
@@ -49,9 +47,9 @@ class hodpage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => hodreq(
-                              userid: title,
+                            builder: (BuildContext context) => requestlist(
                               results: allres,
+                              title:title
                             ),
                           ),
                         );
@@ -86,9 +84,25 @@ class hodpage extends StatelessWidget {
                     height: 25,
                   ),
                   ElevatedButton(
-                    onPressed: () => {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => history()))
+                    //history button
+                    onPressed: ()  async {
+                      var history = await SupabaseCredentials.showhistory();
+                      if (history.length > 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                historylist(results: history),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                "No requests available at the moment! Try again later!"),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(

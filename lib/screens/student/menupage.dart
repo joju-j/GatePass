@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/student/pending.dart';
 import 'package:login_app/screens/student/requestpage.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
-import 'requestpage.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 
 class Menupage extends StatelessWidget {
   Menupage({required this.title});
@@ -24,13 +23,6 @@ class Menupage extends StatelessWidget {
                   const SizedBox(
                     height: 150,
                   ),
-                  // const Text(
-                  //   "WayOut App",
-                  //   style: TextStyle(
-                  //     fontSize: 28,
-                  //     fontFamily: 'Calistoga',
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 150,
                   ),
@@ -84,21 +76,32 @@ class Menupage extends StatelessWidget {
                             String awaiting;
                             var res =
                                 await SupabaseCredentials.pendingstatus(title);
-                            if (res[0]['permission'] == null) {
-                              awaiting = "Waiting for response";
-                            } else if (res[0]['permission'] == false) {
-                              awaiting = "Permssion Denied";
-                            } else {
-                              awaiting = "Permssion Granted";
-                            }
+                            if (res.length > 0) {
+                              if (res[0]['permission'] == null) {
+                                awaiting = "Waiting for response";
+                              } else if (res[0]['permission'] == false) {
+                                awaiting = "Permssion Denied";
+                              } else {
+                                awaiting = "Permssion Granted";
+                              }
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      pendingpage(
-                                          values: title, decision: awaiting,perms:res)),
-                            );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        pendingpage(
+                                            values: title,
+                                            decision: awaiting,
+                                            perms: res)),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      "No pending requests available at the moment! "),
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.only(

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/hod/decision.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 
 // class hodreq extends StatelessWidget {
 //   const hodreq({Key? key}) : super(key: key);

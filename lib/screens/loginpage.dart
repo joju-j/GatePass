@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/main.dart';
 import 'package:login_app/screens/qrcode/scan.dart';
-import 'package:login_app/screens/qrcode/scan2.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 import 'package:provider/provider.dart';
 import '../supabase/authentication.notifier.dart';
-import '../supabase/supabase.credentials.dart';
 import 'hod/hodhome.dart';
 import 'student/menupage.dart';
 

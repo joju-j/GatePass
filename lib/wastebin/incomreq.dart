@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/hod/decision.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
 
 class hodreq extends StatefulWidget {
   var userid, results;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 import 'package:flutter/cupertino.dart';
 
 class RequestScreen extends StatefulWidget {
@@ -43,46 +43,6 @@ class _RequestScreenState extends State<RequestScreen> {
   String? selectedValue;
   printtime(DateTime time) {
     print(time);
-  }
-
-  List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
-    List<DropdownMenuItem<String>> _menuItems = [];
-    for (var item in items) {
-      _menuItems.addAll(
-        [
-          DropdownMenuItem<String>(
-            value: item,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                item,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          //If it's last item, we will not add Divider after it.
-          if (item != items.last)
-            const DropdownMenuItem<String>(
-              enabled: false,
-              child: Divider(),
-            ),
-        ],
-      );
-    }
-    return _menuItems;
-  }
-
-  List<int> _getDividersIndexes() {
-    List<int> _dividersIndexes = [];
-    for (var i = 0; i < (items.length * 2) - 1; i++) {
-      //Dividers indexes will be the odd indexes
-      if (i.isOdd) {
-        _dividersIndexes.add(i);
-      }
-    }
-    return _dividersIndexes;
   }
 
   final clearreason = TextEditingController();
@@ -154,10 +114,6 @@ class _RequestScreenState extends State<RequestScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Row(
-                        //   mainAxisSize: MainAxisSize.max,
-                        //   mainAxisAlignment: MainAxisAlignment.start,
-                        //   children: <Widget>[
                         Text(
                           "Group Advisor: ${widget.values[0]['grpadv']} ",
                           textAlign: TextAlign.start,
@@ -165,10 +121,8 @@ class _RequestScreenState extends State<RequestScreen> {
                             color: Color.fromARGB(255, 85, 31, 31),
                             fontSize: 20,
                             fontFamily: 'Calistoga',
-                            //fontWeight: FontWeight.bold
                           ),
                         ),
-
                         Text(
                           "Class & Batch: S${widget.values[0]['semester']} ${widget.values[0]['dept']} ${widget.values[0]['batch']}",
                           //
@@ -180,7 +134,6 @@ class _RequestScreenState extends State<RequestScreen> {
                             //fontWeight: FontWeight.bold
                           ),
                         ),
-
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -224,7 +177,6 @@ class _RequestScreenState extends State<RequestScreen> {
                             ),
                           ],
                         ),
-
                         SizedBox(
                           width: MediaQuery.of(context).size.height * 0.4,
                           height: MediaQuery.of(context).size.height * 0.15,
@@ -235,9 +187,10 @@ class _RequestScreenState extends State<RequestScreen> {
                             decoration: InputDecoration(
                               labelText: "REASON:",
                               filled: true,
+                              hintText: "(Specify time of entry if exists)",
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
-                                  vertical: 50, horizontal: 20),
+                                  vertical: 40, horizontal: 20),
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
@@ -245,7 +198,6 @@ class _RequestScreenState extends State<RequestScreen> {
                             ),
                           ),
                         ),
-
                         ElevatedButton(
                           onPressed: () => {
                             printtime(time),
@@ -258,7 +210,6 @@ class _RequestScreenState extends State<RequestScreen> {
                                       actions: [
                                         TextButton(
                                             onPressed: () {
-                                              //Navigator.of(context).push();
                                               showDialog(
                                                   context: context,
                                                   builder: (BuildContext ctx) {
@@ -306,7 +257,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                 horizontal: 40, vertical: 20),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
-                            primary: Color.fromARGB(255, 122, 30, 172),
+                            backgroundColor: Color.fromARGB(255, 122, 30, 172),
                             shadowColor: Colors.black,
                             elevation: 10,
                           ),

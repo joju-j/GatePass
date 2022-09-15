@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 
 class decision extends StatelessWidget {
   var value;
@@ -137,7 +137,7 @@ class decision extends StatelessWidget {
                         ),
                         onPressed: () async {
                           acceptbox(context);
-                          await SupabaseCredentials.acceptreq(value);
+                          var res = await SupabaseCredentials.acceptreq(value);
                         },
                         child: Text(
                           'Accept',

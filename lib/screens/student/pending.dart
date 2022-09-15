@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/screens/qrcode/generate.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
 
 class pendingpage extends StatelessWidget {
   var values, perms;

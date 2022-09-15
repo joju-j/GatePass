@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:login_app/supabase/supabase.credentials.dart';
-import 'package:flutter/material.dart';
+import 'package:login_app/supabase/supabase.queries.dart';
 import 'dart:async';
 
 class ScanScreen extends StatefulWidget {
@@ -43,8 +42,8 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> scanQR() async {
-    //try {
 
+    
     print("--------------------------------------------");
     var value = await FlutterBarcodeScanner.scanBarcode(
         "#00FF00", "Cancel", true, ScanMode.QR);
@@ -55,16 +54,18 @@ class _ScanScreenState extends State<ScanScreen> {
       qr = 'Permssion to leave granted';
       await SupabaseCredentials.deleterow1(qrdata);
     } else {
-      qr = 'Permission Declined';
-      await SupabaseCredentials.deleterow2(qrdata);
+      qr = 'Permission Declined'; 
     }
     setState(() {
-      // qr = value;
+      if (qrdata.length > 0) {
+      qr = 'Permssion to leave granted';
+       SupabaseCredentials.deleterow1(qrdata);
+    } else {
+      qr = 'Permission Declined';
+
+    }
+
     });
-    // } on MissingPluginException catch (_) {
-    //   setState(() {
-    //     qr = "Unable to read the QR Code";
-    //   });
-    // }
+
   }
 }
