@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'supabase/app.provider.dart';
 import './screens/loginpage.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -31,5 +30,3 @@ class Lava extends StatelessWidget {
     );
   }
 }
-
-

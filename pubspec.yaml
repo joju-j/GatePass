@@ -63,9 +63,9 @@ dev_dependencies:
   flutter_datetime_picker: 1.5.1
   flutter_launcher_icons: ^0.10.0
 
-flutter icons:
-  image_path: "assets/images/logo2.png"
-  adaptive_icon_background: "#ffffff"
+flutter_icons:
+  image_path: "assets/images/logo3.png"
+  adaptive_icon_background: "#d0777e"
   android: true
   ios: true
 
